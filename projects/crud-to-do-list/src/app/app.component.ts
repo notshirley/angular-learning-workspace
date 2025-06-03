@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CrudService, Todo } from './crud.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -21,8 +21,8 @@ const DEFAULT_TODO = {
 })
 export class AppComponent {
   todos: Todo[] = [];
-  newTodo: Todo = { ...DEFAULT_TODO };
-  editCache: { [id: number]: Todo } = {};
+  @Input() newTodo: Todo = { ...DEFAULT_TODO };
+  editCache: { [id: number]: Todo } = {}; // temporarily store Todo items, indexed by their id
 
   constructor(private crudService: CrudService) {
     this.crudService.todos$.subscribe((todos) => {
@@ -38,8 +38,10 @@ export class AppComponent {
     if (!todo.title.trim()) {
       alert('Title is required');
     } else {
-      todo.id = this.todos.length ? this.todos.length : 1;
+      todo.id = this.todos.length !== 0 ? this.todos.length : 0; // increment id based on current length or start at 0
+      
       this.crudService.addTodo(todo);
+
       this.newTodo = { ...DEFAULT_TODO };
     }
   }
@@ -68,6 +70,7 @@ export class AppComponent {
       alert('Title is required');
     } else {
       this.crudService.editTodo(cache);
+
       todo.isEditing = false;
       delete this.editCache[todo.id];
     }
@@ -81,6 +84,7 @@ export class AppComponent {
   markAsCompleted(id: number): void {
     const todo = this.todos[id];
     todo.isCompleted = !todo.isCompleted;
+
     this.crudService.editTodo(todo);
   }
 

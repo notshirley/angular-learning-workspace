@@ -45,13 +45,13 @@ export class CrudService {
 
   deleteTodo(id: number): void {
     const currentTodos = this.todos.getValue();
-    const updatedTodos = currentTodos.filter((todo) => todo.id !== id);
+    const updatedTodos = currentTodos.filter((todo) => todo.id !== id); // filter for only ids that don't match
     this.todos.next(updatedTodos);
   }
 
   editTodo(updatedTodo: Todo): void {
     const currentTodos = this.todos.getValue();
-    const updatedTodos = currentTodos.map((todo) =>
+    const updatedTodos = currentTodos.map((todo) => // if id matches, replace with updatedTodo
       todo.id === updatedTodo.id ? updatedTodo : todo
     );
     this.todos.next(updatedTodos);
