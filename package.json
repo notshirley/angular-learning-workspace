@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "to-do:serve": "ng serve --project crud-to-do-list"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +24,7 @@
     "zone.js": "~0.14.3"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "^17.3.17",
     "@angular/cli": "^17.3.5",
     "@angular/compiler-cli": "^17.3.0",
     "@types/jasmine": "~5.1.0",

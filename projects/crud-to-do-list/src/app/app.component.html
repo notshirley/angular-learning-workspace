@@ -1,0 +1,109 @@
+<div class="container mt-2">
+  <div class="border rounded border-white border-opacity-50 p-2 d-inline-block">
+    <form class="row g-2">
+      <div class="col-auto">
+        <input
+          class="form-control form-control-sm"
+          type="text"
+          [(ngModel)]="newTodo.title"
+          placeholder="Enter title"
+          name="title"
+        />
+        <input
+          class="form-control form-control-sm"
+          type="text"
+          [(ngModel)]="newTodo.description"
+          placeholder="Enter description"
+          name="description"
+        />
+        <input
+          class="form-control form-control-sm"
+          [(ngModel)]="newTodo.dueDate"
+          type="date"
+          name="dueDate"
+        />
+        <button class="btn btn-success btn-sm mt-2" (click)="addTodo(newTodo)">
+          Add Todo
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="border rounded border-white border-opacity-50 p-2 mt-2">
+    <div class="d-flex m-2">
+      <span class="m-2 fw-bold">TODO List</span>
+      <button class="btn btn-secondary btn-sm" (click)="clearList()">
+        Clear List
+      </button>
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let todo of todos">
+        <div
+          [ngStyle]="{
+            'text-decoration': todo.isCompleted ? 'line-through' : 'none'
+          }"
+        >
+          <input
+            type="checkbox"
+            [(ngModel)]="todo.isCompleted"
+            id="defaultCheck1"
+          />
+          <span class="ms-2">{{ todo.title }}</span>
+          <span *ngIf="todo.dueDate"
+            >- Due: {{ toDateInputValue(todo.dueDate) }}
+          </span>
+          <span *ngIf="todo.description">- {{ todo.description }} </span>
+          <button
+            class="btn btn-danger btn-sm ms-2"
+            (click)="removeTodo(todo.id)"
+          >
+            Remove
+          </button>
+          <button
+            *ngIf="!todo.isCompleted"
+            class="btn btn-primary btn-sm ms-2"
+            (click)="editTodo(todo.id)"
+          >
+            Edit
+          </button>
+        </div>
+        <div class="form-group g-1 row mt-2" *ngIf="todo.isEditing">
+          <div class="col-3">
+            <input
+              class="form-control form-control-sm"
+              [(ngModel)]="editCache[todo.id].title"
+              placeholder="Edit todo title"
+            />
+          </div>
+          <div class="col-3">
+            <input
+              class="form-control form-control-sm"
+              [(ngModel)]="editCache[todo.id].description"
+              placeholder="Edit todo description"
+            />
+          </div>
+          <div class="col-3">
+            <input
+              class="form-control form-control-sm"
+              [(ngModel)]="editCache[todo.id].dueDate"
+              type="date"
+            />
+          </div>
+          <div class="col-1 d-flex">
+            <button
+              class="btn btn-primary btn-sm"
+              (click)="updateTodo(editCache[todo.id])"
+            >
+              Update
+            </button>
+            <button
+              class="btn btn-secondary btn-sm ms-1"
+              (click)="cancelEditMode(todo.id)"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
