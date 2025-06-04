@@ -7,18 +7,21 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "to-do:serve": "ng serve --project crud-to-do-list"
+    "to-do:serve": "ng serve --project crud-to-do-list",
+    "gallery:serve": "ng serve --project carousel-gallery"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^17.3.0",
+    "@angular/animations": "^17.3.12",
     "@angular/common": "^17.3.0",
     "@angular/compiler": "^17.3.0",
     "@angular/core": "^17.3.0",
     "@angular/forms": "^17.3.0",
-    "@angular/platform-browser": "^17.3.0",
+    "@angular/platform-browser": "^17.3.12",
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
+    "bootstrap-icons": "^1.13.1",
+    "clean": "^4.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

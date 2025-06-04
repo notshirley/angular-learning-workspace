@@ -1,0 +1,40 @@
+.image-wrapper {
+  width: 500px;
+  height: 300px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    animation-duration: 0.3s;
+  }
+
+  .slide-left {
+    animation-name: slideInLeft;
+  }
+
+  .slide-right {
+    animation-name: slideInRight;
+  }
+
+  @keyframes slideInLeft {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+}
