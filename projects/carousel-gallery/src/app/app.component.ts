@@ -40,31 +40,27 @@ export class AppComponent {
       this.nextImage();
     }, this.AUTO_ADVANCE_TIME);
   }
-
-  ngOnDestroy(): void {
-    clearTimeout(this.autoAdvanceTimer);
-  }
-
+  
   nextImage() {
     this.resetAutoAdvance();
     this.animationDirection = 'left';
     this.galleryService.getNextImage();
   }
-
+  
   previousImage() {
     this.resetAutoAdvance();
     this.animationDirection = 'right';
     this.galleryService.getPreviousImage();
   }
-
+  
   onAnimationEnd() {
     this.animationDirection = 'none';
   }
-
+  
   autoAnimate() {
     this.animationDirection = 'left';
   }
-
+  
   addImage() {
     try {
       new URL(this.newImageUrl);
@@ -74,4 +70,8 @@ export class AppComponent {
     }
     this.newImageUrl = '';
   }
+  
+    ngOnDestroy(): void {
+      clearTimeout(this.autoAdvanceTimer);
+    }
 }
