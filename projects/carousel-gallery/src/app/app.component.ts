@@ -37,20 +37,20 @@ export class AppComponent {
   private resetAutoAdvance(): void {
     clearTimeout(this.autoAdvanceTimer);
     this.autoAdvanceTimer = setTimeout(() => {
-      this.nextImage();
+      this.onNextImageClick();
     }, this.AUTO_ADVANCE_TIME);
   }
   
-  nextImage() {
+  onNextImageClick() {
     this.resetAutoAdvance();
     this.animationDirection = 'left';
-    this.galleryService.getNextImage();
+    this.galleryService.setNextImage();
   }
   
-  previousImage() {
+  onPreviousImageClick() {
     this.resetAutoAdvance();
     this.animationDirection = 'right';
-    this.galleryService.getPreviousImage();
+    this.galleryService.setPreviousImage();
   }
   
   onAnimationEnd() {
@@ -61,7 +61,7 @@ export class AppComponent {
     this.animationDirection = 'left';
   }
   
-  addImage() {
+  onAddImageClick() {
     try {
       new URL(this.newImageUrl);
       this.galleryService.addNewImage(this.newImageUrl);
