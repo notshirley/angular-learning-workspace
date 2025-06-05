@@ -190,6 +190,100 @@
           }
         }
       }
+    },
+    "carousel-gallery-revamp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/carousel-gallery-revamp",
+      "sourceRoot": "projects/carousel-gallery-revamp/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/carousel-gallery-revamp",
+            "index": "projects/carousel-gallery-revamp/src/index.html",
+            "browser": "projects/carousel-gallery-revamp/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/carousel-gallery-revamp/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/carousel-gallery-revamp/src/favicon.ico",
+              "projects/carousel-gallery-revamp/src/assets"
+            ],
+            "styles": [
+              "projects/carousel-gallery-revamp/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "carousel-gallery-revamp:build:production"
+            },
+            "development": {
+              "buildTarget": "carousel-gallery-revamp:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "carousel-gallery-revamp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/carousel-gallery-revamp/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/carousel-gallery-revamp/src/favicon.ico",
+              "projects/carousel-gallery-revamp/src/assets"
+            ],
+            "styles": [
+              "projects/carousel-gallery-revamp/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
     }
   }
 }
