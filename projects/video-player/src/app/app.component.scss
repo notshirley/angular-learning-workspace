@@ -1,0 +1,9 @@
+video::-internal-media-controls {
+  display: none;
+}
+video::-webkit-media-controls {
+  display: none;
+}
+video {
+  outline: none;
+}

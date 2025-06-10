@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "to-do:serve": "ng serve --project crud-to-do-list",
-    "gallery:serve": "ng serve --project carousel-gallery-revamp"
+    "gallery:serve": "ng serve --project carousel-gallery-revamp",
+    "player:serve": "ng serve --project video-player"
   },
   "private": true,
   "dependencies": {
