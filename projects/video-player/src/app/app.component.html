@@ -1,11 +1,12 @@
 <div class="container-fluid mt-5">
-  <div class="video-player" appHoverControls (hoverStateChange)="showControls = $event">
+  <h3>{{source | mp4ToTitle}}</h3>
+  <div class="video-player" appHoverControls (hoverStateChange)="showControls = $event" (click)="togglePlayPause()">
     <video
       #videoPlayer
       [controls]="false"
-      src="assets/videos/cat-video-1.mp4"
+      [src]="source"
     ></video>
-    <div *ngIf="showControls" class="controls">
+    <div *ngIf="showControls" class="controls d-flex justify-content-between px-3">
       <button class="btn btn-dark" (click)="togglePlayPause()">
         @if (isPlaying) {
           <i class="bi bi-pause-fill"></i>
@@ -13,6 +14,7 @@
           <i class="bi bi-play-fill"></i>
         }
       </button>
+      <button class="btn btn-dark" (click)="toggleFullscreen()"><i class="bi bi-fullscreen"></i></button>
     </div>
   </div>
 </div>
