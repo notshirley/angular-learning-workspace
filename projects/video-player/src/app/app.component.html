@@ -1,17 +1,18 @@
-<div class="container">
-  <div class="video-player">
+<div class="container-fluid mt-5">
+  <div class="video-player" appHoverControls (hoverStateChange)="showControls = $event">
     <video
       #videoPlayer
-      controls
-      width="600"
-      height="400"
-    >
-      <source src="assets/videos/cat-video-1.mp4" type="video/mp4"/>
-      Your browser does not support the video tag.
-    </video>
-    <div class="controls">
-      <button>Play</button>
-      <button>Pause</button>
-      <button>Stop</button>
+      [controls]="false"
+      src="assets/videos/cat-video-1.mp4"
+    ></video>
+    <div *ngIf="showControls" class="controls">
+      <button class="btn btn-dark" (click)="togglePlayPause()">
+        @if (isPlaying) {
+          <i class="bi bi-pause-fill"></i>
+        } @else {
+          <i class="bi bi-play-fill"></i>
+        }
+      </button>
     </div>
+  </div>
 </div>

@@ -1,9 +1,28 @@
-video::-internal-media-controls {
-  display: none;
-}
-video::-webkit-media-controls {
-  display: none;
-}
-video {
-  outline: none;
+.video-player {
+  position: relative;
+  width: 600px;
+  height: auto;
+
+  video {
+    width: 100%;
+    display: block;
+  }
+
+  .controls {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+
+    button {
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      cursor: pointer;
+      opacity: 60%;
+        &:hover {
+            opacity: 100%;
+        }
+    }
+  }
 }
