@@ -1,19 +1,22 @@
-import { Directive, EventEmitter, HostListener, Output } from "@angular/core";
+import { Directive, EventEmitter, Host, HostListener, Output } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 
 @Directive({
     selector: '[appHoverControls]',
     standalone: true
 })
 export class ControlsDirective {
-    @Output() hoverStateChange = new EventEmitter<boolean>();
+    @Output() hoverStateChange = new BehaviorSubject<boolean>(false);
 
     @HostListener('mouseenter')
     onMouseEnter() {
-        this.hoverStateChange.emit(true);
+        this.hoverStateChange.next(true);
     }
 
     @HostListener('mouseleave')
     onMouseLeave() {
-        this.hoverStateChange.emit(false);
+        this.hoverStateChange.next(false);
     }
+
+
 }
