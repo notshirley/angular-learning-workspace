@@ -20,7 +20,7 @@ export class AppComponent {
   @ViewChild('videoPlayer', { static: true })
   videoPlayer!: ElementRef<HTMLVideoElement>;
 
-  video!: HTMLVideoElement;
+  video: HTMLVideoElement | null = null;
   isPlaying = false;
   showControls = false;
   currentVideoTime = 0;
@@ -33,11 +33,11 @@ export class AppComponent {
     this.video.volume = this.volume;
 
     this.video.addEventListener('loadedmetadata', () => {
-      this.videoDuration = this.video.duration;
+      this.videoDuration = this.video!.duration;
     });
 
     this.video.addEventListener('timeupdate', () => {
-      this.currentVideoTime = this.video.currentTime;
+      this.currentVideoTime = this.video!.currentTime;
     });
   }
 
@@ -57,12 +57,12 @@ export class AppComponent {
   }
 
   onSeek(value: number): void {
-    this.video.currentTime = value;
+    this.video!.currentTime = value;
   }
 
   onVolumeChange(value: number): void {
     this.volume = value;
-    this.video.volume = value;
+    this.video!.volume = value;
   }
 
   formatTime(time: number): string {

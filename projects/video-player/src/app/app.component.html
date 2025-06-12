@@ -3,7 +3,7 @@
   <div
     class="video-player"
     appHoverControls
-    (hoverStateChange)="showControls = $event"
+    (hoverState)="showControls = $event"
   >
     <video
       (click)="togglePlayPause()"
@@ -26,7 +26,7 @@
       <div class="position-absolute d-flex align-items-center flex-column">
         <input
           #volumeControl
-          class="form-range volume-slider w-100 mb-5"
+          class="form-range volume-slider w-75 mb-5"
           type="range"
           [min]="0"
           [max]="1"
@@ -37,7 +37,7 @@
           (mouseleave)="showVolumeControl = false"
         />
 
-        <button class="volume-icon mb-5 pb-4" (click)="onVolumeClick()">
+        <button class="volume-icon form-label mb-5 pb-4" (click)="onVolumeClick()">
           @if (volume === 0) {
           <i class="bi bi-volume-mute-fill"></i>
           } @else if (volume <= 0.5) {
@@ -59,7 +59,7 @@
           type="range"
           [min]="0"
           [max]="videoDuration"
-          [step]="1"
+          [step]="videoDuration/100"
           [value]="currentVideoTime"
           (input)="onSeek(seekBar.valueAsNumber)"
         />

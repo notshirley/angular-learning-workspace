@@ -23,6 +23,7 @@
       cursor: pointer;
       background-color: transparent;
       border: none;
+      z-index: 10;
     }
 
     .title {
@@ -32,32 +33,31 @@
       font-size: 18px;
       color: #000;
     }
+    i {
+      font-size: 18px;
+      color: #000;
+    }
+
+    span {
+      color: #000;
+    }
+
+    .form-range {
+      width: 30%;
+    }
   }
 
-  i {
-    font-size: 18px;
-    color: #000;
+  .volume-slider {
+    transform: rotate(-90deg);
   }
 
-  span {
-    color: #000;
+  .seek-container {
+    flex-grow: 1;
+    justify-content: end;
   }
 
-  .form-range {
-    width: 30%;
+  .seek-bar {
+    flex-grow: 1;
+    max-width: 350px;
   }
-}
-
-.volume-slider {
-  transform: rotate(-90deg);
-}
-
-.seek-container {
-  flex-grow: 1;
-  justify-content: end;
-}
-
-.seek-bar {
-  flex-grow: 1;
-  max-width: 350px;
 }

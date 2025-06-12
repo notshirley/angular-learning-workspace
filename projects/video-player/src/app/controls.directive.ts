@@ -6,16 +6,16 @@ import { BehaviorSubject } from "rxjs";
     standalone: true
 })
 export class ControlsDirective {
-    @Output() hoverStateChange = new BehaviorSubject<boolean>(false);
+    @Output() hoverState = new BehaviorSubject<boolean>(false);
 
     @HostListener('mouseenter')
     onMouseEnter() {
-        this.hoverStateChange.next(true);
+        this.hoverState.next(true);
     }
 
     @HostListener('mouseleave')
     onMouseLeave() {
-        this.hoverStateChange.next(false);
+        this.hoverState.next(false);
     }
 
 
