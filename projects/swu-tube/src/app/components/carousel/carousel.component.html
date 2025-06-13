@@ -1,0 +1,43 @@
+<div
+  *ngIf="carousel$ | async as carousel"
+  class="container-fluid d-flex flex-column align-items-center"
+>
+  <h1>Gallery</h1>
+  <div class="d-flex align-items-center mb-3">
+    <button
+      class="btn btn-outline-secondary me-2"
+      (click)="onCarouselButtonClick('left')"
+    >
+      <i class="bi bi-arrow-left"></i>
+    </button>
+
+    <div
+      class="image-wrapper overflow-hidden position-relative"
+    >
+      <img
+        class="position-absolute"
+        *ngIf="transitioning"
+        [src]="carousel.images[carousel.prevImgIndex]"
+        [ngClass]="{
+          'slide-out-to-right': animationDirection === 'left',
+          'slide-out-to-left': animationDirection === 'right'
+        }"
+        (animationend)="onAnimationEnd()"
+      />
+      <img
+        [src]="carousel.images[carousel.currentImgIndex]"
+        [ngClass]="{
+          'slide-in-from-left': animationDirection === 'left' && transitioning,
+          'slide-in-from-right': animationDirection === 'right' && transitioning
+        }"
+      />
+    </div>
+
+    <button
+      class="btn btn-outline-secondary ms-2"
+      (click)="onCarouselButtonClick('right')"
+    >
+      <i class="bi bi-arrow-right"></i>
+    </button>
+  </div>
+</div>
