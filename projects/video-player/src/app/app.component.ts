@@ -85,9 +85,9 @@ export class AppComponent {
   onVolumeClick(): void {
     if (!this.video) return;
 
-    const current = this.controlService.controlSnapshot();
+    const currentControlState = this.controlService.currentControlState();
     this.controlService.updateControl({
-      showVolumeControl: !current.showVolumeControl,
+      showVolumeControl: !currentControlState.showVolumeControl,
     });
   }
 }

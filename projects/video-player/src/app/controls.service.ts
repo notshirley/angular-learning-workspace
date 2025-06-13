@@ -29,7 +29,7 @@ export class ControlsService {
     return this.controlSubject.asObservable();
   }
 
-  controlSnapshot(): Control {
+  currentControlState(): Control {
     return this.controlSubject.value;
   }
 
@@ -38,7 +38,7 @@ export class ControlsService {
   }
 
   updateControl(partial: Partial<Control>) {
-    const current = this.controlSubject.value;
+    const current = this.currentControlState()
     const updated = { ...current, ...partial };
 
     if (updated.currentVideoTime >= updated.videoDuration) {
