@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, Host, HostListener, Output } from "@angular/core";
+import { Directive, HostListener, Output } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 
 @Directive({
@@ -6,16 +6,16 @@ import { BehaviorSubject } from "rxjs";
     standalone: true
 })
 export class ControlsDirective {
-    @Output() hoverState = new BehaviorSubject<boolean>(false);
+    @Output() hoverVideoState = new BehaviorSubject<boolean>(false);
 
     @HostListener('mouseenter')
-    onMouseEnter() {
-        this.hoverState.next(true);
+    onMouseEnterVideo() {
+        this.hoverVideoState.next(true);
     }
 
     @HostListener('mouseleave')
-    onMouseLeave() {
-        this.hoverState.next(false);
+    onMouseLeaveVideo() {
+        this.hoverVideoState.next(false);
     }
 
 

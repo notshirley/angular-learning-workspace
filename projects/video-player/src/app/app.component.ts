@@ -1,10 +1,14 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  ViewChild,
+} from '@angular/core';
 import { ControlsDirective } from './controls.directive';
 import { CommonModule } from '@angular/common';
 import { Mp4ToTitlePipe } from './mp4-to-title.pipe';
 
 // doesn't consider what happens when video is over
-// doesn't allow adjustment of volume outside of fullscreen
 // video source is dynamic, but must change in code
 
 @Component({
@@ -16,7 +20,7 @@ import { Mp4ToTitlePipe } from './mp4-to-title.pipe';
 })
 export class AppComponent {
   @Input() title = 'video-player';
-  @Input() source = "assets/videos/cat-video-1.mp4"
+  @Input() source = 'assets/videos/orange-cat-playing-with-rat-toy.mp4';
   @ViewChild('videoPlayer', { static: true })
   videoPlayer!: ElementRef<HTMLVideoElement>;
 
@@ -38,6 +42,11 @@ export class AppComponent {
 
     this.video.addEventListener('timeupdate', () => {
       this.currentVideoTime = this.video!.currentTime;
+
+      if (this.currentVideoTime >= this.videoDuration) {
+        this.currentVideoTime = 0;
+        this.isPlaying = false;
+      }
     });
   }
 

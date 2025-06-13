@@ -1,5 +1,4 @@
 .video-player {
-  position: relative;
   width: 600px;
   height: auto;
 
@@ -7,13 +6,10 @@
     z-index: 10;
   }
   video {
-    width: 100%;
-    display: block;
     border-radius: 10px;
   }
 
   .controls {
-    position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
@@ -27,12 +23,11 @@
     }
 
     .title {
-      position: absolute;
       bottom: 290px;
-      text-align: center;
       font-size: 18px;
-      color: #000;
+      color: #fff;
     }
+
     i {
       font-size: 18px;
       color: #000;
@@ -51,13 +46,7 @@
     transform: rotate(-90deg);
   }
 
-  .seek-container {
-    flex-grow: 1;
-    justify-content: end;
-  }
-
   .seek-bar {
-    flex-grow: 1;
     max-width: 350px;
   }
 }

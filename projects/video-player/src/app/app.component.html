@@ -1,11 +1,12 @@
 <div class="container-fluid d-flex flex-column align-items-center mt-5">
   <h3>Video Player</h3>
   <div
-    class="video-player"
+    class="video-player position-relative"
     appHoverControls
-    (hoverState)="showControls = $event"
+    (hoverVideoState)="showControls = $event"
   >
     <video
+      class="w-100 d-block"
       (click)="togglePlayPause()"
       #videoPlayer
       [controls]="false"
@@ -13,9 +14,9 @@
     ></video>
     <div
       *ngIf="showControls"
-      class="controls d-flex justify-content-between align-items-center px-3"
+      class="controls d-flex justify-content-between align-items-center px-3 position-absolute"
     >
-      <h3 class="title">Title: {{ source | mp4ToTitle }}</h3>
+      <h3 class="title position-absolute">Title: {{ source | mp4ToTitle }}</h3>
       <button (click)="togglePlayPause()">
         @if (isPlaying) {
         <i class="bi bi-pause-fill"></i>
@@ -37,7 +38,7 @@
           (mouseleave)="showVolumeControl = false"
         />
 
-        <button class="volume-icon form-label mb-5 pb-4" (click)="onVolumeClick()">
+        <button class="form-label mb-5 pb-4" (click)="onVolumeClick()">
           @if (volume === 0) {
           <i class="bi bi-volume-mute-fill"></i>
           } @else if (volume <= 0.5) {
@@ -48,14 +49,14 @@
         </button>
       </div>
 
-      <div class="seek-container d-flex me-3">
+      <div class="d-flex me-3 justify-content-end flex-grow-1">
         <span class="seek-info me-2"
           >{{ formatTime(currentVideoTime) }} /
           {{ formatTime(videoDuration) }}</span
         >
         <input
           #seekBar
-          class="form-range seek-bar"
+          class="form-range seek-bar flex-grow-1"
           type="range"
           [min]="0"
           [max]="videoDuration"
