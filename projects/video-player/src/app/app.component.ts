@@ -1,15 +1,8 @@
-import {
-  Component,
-  ElementRef,
-  Input,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { ControlsDirective } from './controls.directive';
 import { CommonModule } from '@angular/common';
 import { Mp4ToTitlePipe } from './mp4-to-title.pipe';
-
-// doesn't consider what happens when video is over
-// video source is dynamic, but must change in code
+import { ControlsService, DEFAULT_CONTROL } from './controls.service';
 
 @Component({
   selector: 'app-root',
@@ -19,59 +12,68 @@ import { Mp4ToTitlePipe } from './mp4-to-title.pipe';
   imports: [ControlsDirective, CommonModule, Mp4ToTitlePipe],
 })
 export class AppComponent {
+  control$ = this.controlService.control$;
   @Input() title = 'video-player';
   @Input() source = 'assets/videos/orange-cat-playing-with-rat-toy.mp4';
-  @ViewChild('videoPlayer', { static: true })
+  @ViewChild('videoPlayer', { static: false })
   videoPlayer!: ElementRef<HTMLVideoElement>;
-
   video: HTMLVideoElement | null = null;
-  isPlaying = false;
-  showControls = false;
-  currentVideoTime = 0;
-  videoDuration = 0;
-  volume = 0.0;
-  showVolumeControl = false;
+
+  constructor(private controlService: ControlsService) {}
 
   ngAfterViewInit() {
     this.video = this.videoPlayer.nativeElement;
-    this.video.volume = this.volume;
-
-    this.video.addEventListener('loadedmetadata', () => {
-      this.videoDuration = this.video!.duration;
-    });
-
-    this.video.addEventListener('timeupdate', () => {
-      this.currentVideoTime = this.video!.currentTime;
-
-      if (this.currentVideoTime >= this.videoDuration) {
-        this.currentVideoTime = 0;
-        this.isPlaying = false;
-      }
-    });
-  }
-
-  togglePlayPause() {
     if (this.video) {
-      if (this.isPlaying) {
-        this.video.pause();
-      } else {
-        this.video.play();
-      }
-      this.isPlaying = !this.isPlaying;
+      this.video.addEventListener('loadedmetadata', () => {
+        this.controlService.setControl({
+          ...DEFAULT_CONTROL,
+          videoDuration: this.video!.duration,
+        });
+      });
+      
+      this.video.addEventListener('timeupdate', () => {
+        this.controlService.updateControl({
+          currentVideoTime: this.video!.currentTime,
+        });
+      });
+
+      this.video.volume = 0
     }
   }
 
+  togglePlayPause() {
+    if (!this.video) return;
+
+    const isPlaying = !this.video.paused;
+
+    if (isPlaying) {
+      this.video.pause();
+    } else {
+      this.video.play();
+    }
+
+    this.controlService.updateControl({ isPlaying: !isPlaying });
+  }
+
   toggleFullscreen() {
+    if (!this.video) return;
+
     this.video?.requestFullscreen();
   }
 
   onSeek(value: number): void {
+    if (!this.video) return;
+
     this.video!.currentTime = value;
+
+    this.controlService.updateControl({ currentVideoTime: value });
   }
 
   onVolumeChange(value: number): void {
-    this.volume = value;
+    if (!this.video) return;
+
     this.video!.volume = value;
+    this.controlService.updateControl({ volume: value });
   }
 
   formatTime(time: number): string {
@@ -81,6 +83,11 @@ export class AppComponent {
   }
 
   onVolumeClick(): void {
-    this.showVolumeControl = !this.showVolumeControl;
+    if (!this.video) return;
+
+    const current = this.controlService.controlSnapshot();
+    this.controlService.updateControl({
+      showVolumeControl: !current.showVolumeControl,
+    });
   }
 }

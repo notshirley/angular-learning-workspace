@@ -1,24 +1,25 @@
-<div class="container-fluid d-flex flex-column align-items-center mt-5">
+<div *ngIf="control$ | async as control"
+ class="container-fluid d-flex flex-column align-items-center mt-5">
   <h3>Video Player</h3>
   <div
     class="video-player position-relative"
     appHoverControls
-    (hoverVideoState)="showControls = $event"
+    (hoverVideoState)="control.showControls = $event"
   >
     <video
       class="w-100 d-block"
-      (click)="togglePlayPause()"
       #videoPlayer
+      (click)="togglePlayPause()"
       [controls]="false"
       [src]="source"
     ></video>
     <div
-      *ngIf="showControls"
+      *ngIf="control.showControls"
       class="controls d-flex justify-content-between align-items-center px-3 position-absolute"
     >
       <h3 class="title position-absolute">Title: {{ source | mp4ToTitle }}</h3>
       <button (click)="togglePlayPause()">
-        @if (isPlaying) {
+        @if (control.isPlaying) {
         <i class="bi bi-pause-fill"></i>
         } @else {
         <i class="bi bi-play-fill"></i>
@@ -32,16 +33,16 @@
           [min]="0"
           [max]="1"
           [step]="0.01"
-          [value]="volume"
-          [style.visibility]="showVolumeControl ? 'visible' : 'hidden'"
+          [value]="control.volume"
+          [style.visibility]="control.showVolumeControl ? 'visible' : 'hidden'"
           (input)="onVolumeChange(volumeControl.valueAsNumber)"
-          (mouseleave)="showVolumeControl = false"
+          (mouseleave)="control.showVolumeControl = false"
         />
 
         <button class="form-label mb-5 pb-4" (click)="onVolumeClick()">
-          @if (volume === 0) {
+          @if (control.volume === 0) {
           <i class="bi bi-volume-mute-fill"></i>
-          } @else if (volume <= 0.5) {
+          } @else if (control.volume <= 0.5) {
           <i class="bi bi-volume-down-fill"></i>
           } @else {
           <i class="bi bi-volume-up-fill"></i>
@@ -51,17 +52,17 @@
 
       <div class="d-flex me-3 justify-content-end flex-grow-1">
         <span class="seek-info me-2"
-          >{{ formatTime(currentVideoTime) }} /
-          {{ formatTime(videoDuration) }}</span
+          >{{ formatTime(control.currentVideoTime) }} /
+          {{ formatTime(control.videoDuration) }}</span
         >
         <input
           #seekBar
           class="form-range seek-bar flex-grow-1"
           type="range"
           [min]="0"
-          [max]="videoDuration"
-          [step]="videoDuration/100"
-          [value]="currentVideoTime"
+          [max]="control.videoDuration"
+          [step]="control.videoDuration/100"
+          [value]="control.currentVideoTime"
           (input)="onSeek(seekBar.valueAsNumber)"
         />
       </div>
